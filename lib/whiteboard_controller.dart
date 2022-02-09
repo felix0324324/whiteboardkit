@@ -16,7 +16,7 @@ abstract class WhiteboardController {
 
   final bool readonly;
   final bool toolbox;
-  final ToolboxOptions toolboxOptions;
+  ToolboxOptions toolboxOptions;
 
   WhiteboardController({
     @required this.readonly,

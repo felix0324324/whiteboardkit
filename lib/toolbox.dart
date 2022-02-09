@@ -132,6 +132,7 @@ class _ToolBoxState extends State<ToolBox> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    if (widget.options.thick)
                     _buildToolButton(
                       Icon(
                         FontAwesomeIcons.pen,
@@ -139,8 +140,10 @@ class _ToolBoxState extends State<ToolBox> {
                       ),
                       select: ToolBoxSelected.size,
                     ),
+                    if (widget.options.colors)
                     _buildToolButton(Icon(Icons.color_lens),
                         select: ToolBoxSelected.color, color: brushColor),
+                    if (widget.options.rubber)
                     _buildToolButton(
                       Icon(
                         FontAwesomeIcons.eraser,
@@ -161,6 +164,7 @@ class _ToolBoxState extends State<ToolBox> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    if (widget.options.clearAll)
                     _buildToolButton(
                       Icon(
                         FontAwesomeIcons.file,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whiteboardkit/toolbox_options.dart';
 import 'package:whiteboardkit/whiteboardkit.dart';
 
 void main() => runApp(MyApp());
@@ -29,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     controller = new DrawingController();
+    controller.toolboxOptions = ToolboxOptions(rubber: false, clearAll: false);
     controller.onChange().listen((draw){
       //do something with it
     });
