@@ -77,8 +77,8 @@ class WhiteboardState extends State<Whiteboard> {
       // if (!initialized)
       // if (Size(constraints.maxWidth, constraints.maxHeight - toolboxOffset) !=
       //     availbleSize)
-        widget.controller.initializeSize(
-            constraints.maxWidth, constraints.maxHeight - toolboxOffset);
+      widget.controller.initializeSize(
+          constraints.maxWidth, constraints.maxHeight - toolboxOffset);
 
       availbleSize =
           Size(constraints.maxWidth, constraints.maxHeight - toolboxOffset);
@@ -101,48 +101,47 @@ class WhiteboardState extends State<Whiteboard> {
             Stack(
               children: <Widget>[
                 RepaintBoundary(
-                    key: (widget.controller as DrawingController).screenshotKey, //widget.screenshotKey // DrawingController,
-                    child:
-                Container(
-                  margin: EdgeInsets.only(bottom: toolboxOffset),
-                  width: boardSize.width,
-                  height: boardSize.height,
-                  alignment: FractionalOffset.center,
-                  decoration: BoxDecoration(
-                    border: widget.style.border,
-                  ),
-                  child: GestureDetector(
-                    onPanUpdate: (DragUpdateDetails details) {
-                      if(widget.controller.readonly) return;
+                    key: (widget.controller as DrawingController).screenshotKey,
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: toolboxOffset),
+                      width: boardSize.width,
+                      height: boardSize.height,
+                      alignment: FractionalOffset.center,
+                      decoration: BoxDecoration(
+                        border: widget.style.border,
+                      ),
+                      child: GestureDetector(
+                        onPanUpdate: (DragUpdateDetails details) {
+                          if (widget.controller.readonly) return;
 
-                      RenderBox object = context.findRenderObject();
-                      Offset _localPosition =
-                          object.globalToLocal(details.globalPosition);
-                      widget.controller.onPanUpdate(_localPosition);
-                      setState(() {});
-                    },
-                    onPanEnd: (DragEndDetails details) {
-                      if(widget.controller.readonly) return;
+                          RenderBox object = context.findRenderObject();
+                          Offset _localPosition =
+                              object.globalToLocal(details.globalPosition);
+                          widget.controller.onPanUpdate(_localPosition);
+                          setState(() {});
+                        },
+                        onPanEnd: (DragEndDetails details) {
+                          if (widget.controller.readonly) return;
 
-                      widget.controller.onPanEnd();
-                      setState(() {});
-                    },
-                    child: StreamBuilder<WhiteboardDraw>(
-                        stream: widget.controller.onChange(),
-                        builder: (context, snapshot) {
-                          var draw = snapshot.data;
+                          widget.controller.onPanEnd();
+                          setState(() {});
+                        },
+                        child: StreamBuilder<WhiteboardDraw>(
+                            stream: widget.controller.onChange(),
+                            builder: (context, snapshot) {
+                              var draw = snapshot.data;
 
-                          return CustomPaint(
-                            key: UniqueKey(),
-                            foregroundPainter: new SuperPainter(draw),
-                            size: Size.infinite,
-                            child: Container(
-                              color: Colors.white,
-                            ),
-                          );
-                        }),
-                  ),
-                )),
+                              return CustomPaint(
+                                key: UniqueKey(),
+                                foregroundPainter: new SuperPainter(draw),
+                                size: Size.infinite,
+                                child: Container(
+                                  color: Colors.white,
+                                ),
+                              );
+                            }),
+                      ),
+                    )),
                 if (showToolBox)
                   Positioned(
                     bottom: 0.0,
