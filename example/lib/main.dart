@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:whiteboardkit/toolbox_options.dart';
 import 'package:whiteboardkit/whiteboardkit.dart';
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     controller = new DrawingController();
-    controller.toolboxOptions = ToolboxOptions(rubber: false, clearAll: false);
+    controller.toolboxOptions = ToolboxOptions(eraser: false, thickIcon: CupertinoIcons.scribble, colorsIcon: CupertinoIcons.eyedropper, clearAllIcon: CupertinoIcons.square_stack_3d_up_slash, undoIcon: CupertinoIcons.arrow_uturn_left);
     controller.onChange().listen((draw){
       //do something with it
     });

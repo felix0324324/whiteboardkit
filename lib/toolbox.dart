@@ -5,6 +5,7 @@ import 'package:whiteboardkit/toolbox_options.dart';
 import 'drawing_controller.dart';
 
 enum ToolBoxSelected { none, size, color, erase }
+enum IconEnum { PenIcon, ColorsIcon, EraserIcon, FileIcon, UndoIcon }
 
 class ToolBox extends StatefulWidget {
   // final double width;
@@ -24,6 +25,7 @@ class ToolBox extends StatefulWidget {
 }
 
 class _ToolBoxState extends State<ToolBox> {
+
   double brushSize;
   Color brushColor;
   bool erase;
@@ -135,18 +137,18 @@ class _ToolBoxState extends State<ToolBox> {
                     if (widget.options.thick)
                     _buildToolButton(
                       Icon(
-                        FontAwesomeIcons.pen,
+                        getIcon(IconEnum.PenIcon),
                         size: 20,
                       ),
                       select: ToolBoxSelected.size,
                     ),
                     if (widget.options.colors)
-                    _buildToolButton(Icon(Icons.color_lens),
+                    _buildToolButton(Icon(getIcon(IconEnum.ColorsIcon)),
                         select: ToolBoxSelected.color, color: brushColor),
-                    if (widget.options.rubber)
+                    if (widget.options.eraser)
                     _buildToolButton(
                       Icon(
-                        FontAwesomeIcons.eraser,
+                        getIcon(IconEnum.EraserIcon),
                         color: new Color(0xffff93f5),
                         size: 26.0,
                       ),
@@ -167,7 +169,7 @@ class _ToolBoxState extends State<ToolBox> {
                     if (widget.options.clearAll)
                     _buildToolButton(
                       Icon(
-                        FontAwesomeIcons.file,
+                        getIcon(IconEnum.FileIcon),
                         size: 26.0,
                         color: widget.color,
                       ),
@@ -176,7 +178,7 @@ class _ToolBoxState extends State<ToolBox> {
                     if (widget.options.undo)
                       _buildToolButton(
                           Icon(
-                            FontAwesomeIcons.undo,
+                            getIcon(IconEnum.UndoIcon),
                             color: widget.color,
                             size: 24,
                           ),
@@ -236,7 +238,7 @@ class _ToolBoxState extends State<ToolBox> {
       height: 90,
       width: 80,
       child: IconButton(
-        icon: Icon(FontAwesomeIcons.pen),
+        icon: Icon(getIcon(IconEnum.PenIcon)),
         color: Colors.black54,
         iconSize: size * 1.6,
         onPressed: () => changeSize(size),
@@ -260,7 +262,7 @@ class _ToolBoxState extends State<ToolBox> {
         color: color == brushColor && !erase ? Colors.grey[300] : Colors.white,
       ),
       child: IconButton(
-        icon: Icon(Icons.color_lens),
+        icon: Icon(getIcon(IconEnum.ColorsIcon)),
         color: color,
         iconSize: 40.0,
         onPressed: () => changeColor(color),
@@ -286,7 +288,7 @@ class _ToolBoxState extends State<ToolBox> {
       height: 60,
       width: 60,
       child: IconButton(
-        icon: Icon(FontAwesomeIcons.eraser),
+        icon: Icon(getIcon(IconEnum.EraserIcon)),
         color: new Color(0xffff93f5),
         iconSize: size,
         onPressed: () => changeEraser(true, size),
@@ -335,6 +337,32 @@ class _ToolBoxState extends State<ToolBox> {
       hide();
     });
   }
+
+  IconData getIcon(IconEnum iconEnum) {
+    IconData aIconData;
+    switch (iconEnum) {
+      case IconEnum.PenIcon:
+        aIconData = widget.options.thickIcon != null ? widget.options.thickIcon : FontAwesomeIcons.pen;
+        break;
+      case IconEnum.ColorsIcon:
+        aIconData = widget.options.colorsIcon != null ? widget.options.colorsIcon : Icons.color_lens;
+        break;
+      case IconEnum.EraserIcon:
+        aIconData = widget.options.eraserIcon != null ? widget.options.eraserIcon : FontAwesomeIcons.eraser;
+        break;
+      case IconEnum.FileIcon:
+        aIconData = widget.options.clearAllIcon != null ? widget.options.clearAllIcon : FontAwesomeIcons.file;
+        break;
+      case IconEnum.UndoIcon:
+        aIconData = widget.options.undoIcon != null ? widget.options.undoIcon : FontAwesomeIcons.undo;
+        break;
+      // default:
+      //   break;
+    }
+
+    return aIconData;
+  }
+
 
 //  void changeErase(bool erase) {
 //    setState(() {

@@ -1,12 +1,18 @@
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/cupertino.dart';
 
 class ToolboxOptions {
   final bool thick;
   final bool colors;
-  final bool rubber;
+  final bool eraser;
   final bool clearAll;
   final bool undo;
+  final IconData thickIcon;
+  final IconData colorsIcon;
+  final IconData eraserIcon;
+  final IconData clearAllIcon;
+  final IconData undoIcon;
 
-  const ToolboxOptions({this.thick = true, this.colors = true, this.rubber = true, this.clearAll = true, this.undo = true});
+  const ToolboxOptions({this.thick = true, this.colors = true, this.eraser = true, this.clearAll = true, this.undo = true,
+    this.thickIcon = null, this.colorsIcon = null, this.eraserIcon = null, this.clearAllIcon = null, this.undoIcon = null});
 }
