@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:whiteboardkit/whiteboardkit.dart';
 import 'draw_chunker.dart';
 import 'toolbox_options.dart';
 import 'whiteboard_draw.dart';
 import 'whiteboard_controller.dart';
+import 'dart:ui' as ui;
 
 class DrawingController extends WhiteboardController {
   bool _newLine = true;
@@ -21,6 +25,7 @@ class DrawingController extends WhiteboardController {
   final _chunkController = StreamController<DrawChunk>.broadcast();
   DrawChunker _chunker;
   final bool enableChunk;
+  final GlobalKey screenshotKey = new GlobalKey();
 
   DrawingController({WhiteboardDraw draw, this.enableChunk = false})
       : super(
@@ -122,6 +127,15 @@ class DrawingController extends WhiteboardController {
   wipe() {
     this.draw.lines.add(new Line(points: [], wipe: true));
     streamController.sink.add(this.draw.copyWith());
+  }
+
+  Future<ui.Image> getPNG() async {
+    RenderRepaintBoundary boundary = screenshotKey.currentContext.findRenderObject();
+    ui.Image _aImage = await boundary.toImage(pixelRatio: 2);
+    ByteData _aByteData = await _aImage.toByteData(format: ui.ImageByteFormat.png);
+    var aData = _aByteData.buffer.asUint8List(_aByteData.offsetInBytes, _aByteData.lengthInBytes);
+    var abase64 = base64Encode(aData);
+    return _aImage;
   }
 
   Future<void> _flushChunk() async {

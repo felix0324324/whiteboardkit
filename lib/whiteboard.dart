@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:whiteboardkit/toolbox.dart';
 import 'package:whiteboardkit/whiteboard_controller.dart';
 
+import 'drawing_controller.dart';
 import 'whiteboard_draw.dart';
 import 'whiteboard_style.dart';
 
@@ -97,6 +100,9 @@ class WhiteboardState extends State<Whiteboard> {
           children: <Widget>[
             Stack(
               children: <Widget>[
+                RepaintBoundary(
+                    key: (widget.controller as DrawingController).screenshotKey, //widget.screenshotKey // DrawingController,
+                    child:
                 Container(
                   margin: EdgeInsets.only(bottom: toolboxOffset),
                   width: boardSize.width,
@@ -136,7 +142,7 @@ class WhiteboardState extends State<Whiteboard> {
                           );
                         }),
                   ),
-                ),
+                )),
                 if (showToolBox)
                   Positioned(
                     bottom: 0.0,
