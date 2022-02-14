@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  json_annotation: ^3.0.1
+  json_annotation: ^4.1.1
   font_awesome_flutter: ^8.4.0
   xml: ^5.0.0
   async: ^2.4.1
