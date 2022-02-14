@@ -132,9 +132,9 @@ class DrawingController extends WhiteboardController {
   Future<ui.Image> getPNG() async {
     RenderRepaintBoundary boundary = screenshotKey.currentContext.findRenderObject();
     ui.Image _aImage = await boundary.toImage(pixelRatio: 2);
-    ByteData _aByteData = await _aImage.toByteData(format: ui.ImageByteFormat.png);
-    var aData = _aByteData.buffer.asUint8List(_aByteData.offsetInBytes, _aByteData.lengthInBytes);
-    var abase64 = base64Encode(aData);
+    // ByteData _aByteData = await _aImage.toByteData(format: ui.ImageByteFormat.png);
+    // var aData = _aByteData.buffer.asUint8List(_aByteData.offsetInBytes, _aByteData.lengthInBytes);
+    // var abase64 = base64Encode(aData);
     return _aImage;
   }
 
