@@ -137,11 +137,9 @@ class WhiteboardState extends State<Whiteboard> {
                                 key: UniqueKey(),
                                 foregroundPainter: new SuperPainter(draw),
                                 size: Size.infinite,
-                                child:
-                                    (widget.controller.bgImage.width != null &&
-                                            widget.controller.bgImage.width > 0)
-                                        ? widget.controller.bgImage
-                                        : Container(color: Colors.white),
+                                child: (widget.controller.bgImage != null)
+                                    ? widget.controller.bgImage
+                                    : Container(color: Colors.white),
                               ),
                             ]),
                           );
