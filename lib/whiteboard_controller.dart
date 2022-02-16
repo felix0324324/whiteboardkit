@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'toolbox_options.dart';
 import 'whiteboard_draw.dart';
+// import 'dart:ui' as ui;
 
 typedef void SizeChanged(Size size);
 
@@ -16,11 +17,13 @@ abstract class WhiteboardController {
 
   final bool readonly;
   final bool toolbox;
+  Image bgImage;
   ToolboxOptions toolboxOptions;
 
   WhiteboardController({
     @required this.readonly,
     this.toolbox = false,
+    this.bgImage,
     this.toolboxOptions = const ToolboxOptions(),
   });
 

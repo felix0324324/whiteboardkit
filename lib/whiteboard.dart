@@ -100,48 +100,54 @@ class WhiteboardState extends State<Whiteboard> {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                RepaintBoundary(
-                    key: (widget.controller as DrawingController).screenshotKey,
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: toolboxOffset),
-                      width: boardSize.width,
-                      height: boardSize.height,
-                      alignment: FractionalOffset.center,
-                      decoration: BoxDecoration(
-                        border: widget.style.border,
-                      ),
-                      child: GestureDetector(
-                        onPanUpdate: (DragUpdateDetails details) {
-                          if (widget.controller.readonly) return;
+                Container(
+                  margin: EdgeInsets.only(bottom: toolboxOffset),
+                  width: boardSize.width,
+                  height: boardSize.height,
+                  alignment: FractionalOffset.topLeft,
+                  decoration: BoxDecoration(
+                    border: widget.style.border,
+                  ),
+                  child: GestureDetector(
+                    onPanUpdate: (DragUpdateDetails details) {
+                      if (widget.controller.readonly) return;
 
-                          RenderBox object = context.findRenderObject();
-                          Offset _localPosition =
-                              object.globalToLocal(details.globalPosition);
-                          widget.controller.onPanUpdate(_localPosition);
-                          setState(() {});
-                        },
-                        onPanEnd: (DragEndDetails details) {
-                          if (widget.controller.readonly) return;
+                      RenderBox object = context.findRenderObject();
+                      Offset _localPosition =
+                          object.globalToLocal(details.globalPosition);
+                      widget.controller.onPanUpdate(_localPosition);
+                      setState(() {});
+                    },
+                    onPanEnd: (DragEndDetails details) {
+                      if (widget.controller.readonly) return;
 
-                          widget.controller.onPanEnd();
-                          setState(() {});
-                        },
-                        child: StreamBuilder<WhiteboardDraw>(
-                            stream: widget.controller.onChange(),
-                            builder: (context, snapshot) {
-                              var draw = snapshot.data;
+                      widget.controller.onPanEnd();
+                      setState(() {});
+                    },
+                    child: StreamBuilder<WhiteboardDraw>(
+                        stream: widget.controller.onChange(),
+                        builder: (context, snapshot) {
+                          var draw = snapshot.data;
 
-                              return CustomPaint(
+                          return RepaintBoundary(
+                            key: (widget.controller as DrawingController)
+                                .screenshotKey,
+                            child: Stack(children: <Widget>[
+                              CustomPaint(
                                 key: UniqueKey(),
                                 foregroundPainter: new SuperPainter(draw),
                                 size: Size.infinite,
-                                child: Container(
-                                  color: Colors.white,
-                                ),
-                              );
-                            }),
-                      ),
-                    )),
+                                child:
+                                    (widget.controller.bgImage.width != null &&
+                                            widget.controller.bgImage.width > 0)
+                                        ? widget.controller.bgImage
+                                        : Container(color: Colors.white),
+                              ),
+                            ]),
+                          );
+                        }),
+                  ),
+                ),
                 if (showToolBox)
                   Positioned(
                     bottom: 0.0,

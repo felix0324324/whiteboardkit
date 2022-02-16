@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:whiteboardkit/toolbox_options.dart';
 import 'package:whiteboardkit/whiteboardkit.dart';
+import 'dart:convert';
 
 void main() => runApp(MyApp());
 
@@ -30,9 +31,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    String aImageString = "";
     controller = new DrawingController();
-    controller.toolboxOptions = ToolboxOptions(eraser: false, thickIcon: CupertinoIcons.scribble, colorsIcon: CupertinoIcons.eyedropper, clearAllIcon: CupertinoIcons.square_stack_3d_up_slash, undoIcon: CupertinoIcons.arrow_uturn_left);
-    controller.onChange().listen((draw){
+    controller.toolboxOptions = ToolboxOptions(
+        // toolBarColor: Colors.red,
+        eraser: false,
+        thickIcon: CupertinoIcons.scribble,
+        colorsIcon: CupertinoIcons.eyedropper,
+        clearAllIcon: CupertinoIcons.square_stack_3d_up_slash,
+        undoIcon: CupertinoIcons.arrow_uturn_left);
+
+    controller.bgImage = Image.memory(base64Decode(aImageString));
+
+    controller.onChange().listen((draw) {
       //do something with it
     });
     super.initState();
