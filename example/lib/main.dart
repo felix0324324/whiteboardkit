@@ -41,16 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
         clearAllIcon: CupertinoIcons.square_stack_3d_up_slash,
         undoIcon: CupertinoIcons.arrow_uturn_left);
 
-    // var aImage = await getImage();
-    // var aaa = Image.memory(base64Decode(aImageString));
     getImage().then((value) {
       controller.bgImage = value;
     });
-    // controller.bgImage = Image.memory(base64Decode(aImageString));
 
     controller.onChange().listen((draw) {
       //do something with it
-      var aaa = controller.getBase64();
+      // var aBase64 = controller.getBase64();
     });
     super.initState();
   }

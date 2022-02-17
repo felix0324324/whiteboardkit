@@ -108,7 +108,8 @@ class WhiteboardState extends State<Whiteboard> {
                   height: boardSize.height,
                   alignment: FractionalOffset.topLeft,
                   decoration: BoxDecoration(
-                    // color: Colors.red,
+                    color: widget.controller.toolboxOptions.canvasBGColor ??
+                        Colors.white,
                     border: widget.style.border,
                   ),
                   child: GestureDetector(

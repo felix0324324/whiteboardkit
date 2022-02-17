@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class ToolboxOptions {
+  final Color canvasBGColor;
   final Color toolBarColor;
   final bool thick;
   final bool colors;
@@ -14,7 +15,8 @@ class ToolboxOptions {
   final IconData undoIcon;
 
   const ToolboxOptions(
-      {this.toolBarColor = null,
+      {this.canvasBGColor = null,
+      this.toolBarColor = null,
       this.thick = true,
       this.colors = true,
       this.eraser = true,
