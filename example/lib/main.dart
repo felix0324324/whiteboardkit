@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:whiteboardkit/toolbox_options.dart';
 import 'package:whiteboardkit/whiteboardkit.dart';
 import 'dart:convert';
+// import 'package:image/image.dart' as ImagePackage;
 
 void main() => runApp(MyApp());
 
@@ -30,23 +31,39 @@ class _MyHomePageState extends State<MyHomePage> {
   DrawingController controller;
 
   @override
-  void initState() {
-    String aImageString = "";
+  Future<void> initState() {
+    // String aImageString = "";
     controller = new DrawingController();
     controller.toolboxOptions = ToolboxOptions(
-        // toolBarColor: Colors.red,
         eraser: false,
         thickIcon: CupertinoIcons.scribble,
         colorsIcon: CupertinoIcons.eyedropper,
         clearAllIcon: CupertinoIcons.square_stack_3d_up_slash,
         undoIcon: CupertinoIcons.arrow_uturn_left);
 
-    controller.bgImage = Image.memory(base64Decode(aImageString));
+    // var aImage = await getImage();
+    // var aaa = Image.memory(base64Decode(aImageString));
+    getImage().then((value) {
+      controller.bgImage = value;
+    });
+    // controller.bgImage = Image.memory(base64Decode(aImageString));
 
     controller.onChange().listen((draw) {
       //do something with it
+      var aaa = controller.getBase64();
     });
     super.initState();
+  }
+
+  Future<Widget> getImage() async {
+    return Image.network(
+      // "https://image.winudf.com/v2/image1/Y29tLmxpaGtnLmFwcF9zY3JlZW5fMF8xNTkxMzQyMDk2XzA2Ng/screen-0.jpg?fakeurl=1&type=.jpg", // |
+      "https://cache.hkgolden.media/compress/https://img.eservice-hk.net/upload/2018/06/04/203936_c7da2202001ef3739c67954b4c9dbb31.png",
+      // "https://na.cx/i/mdGJgZH.png", //
+      // "https://static.javatpoint.com/tutorial/flutter/images/flutter-creating-android-platform-specific-code3.png",
+      // width: 500,
+      fit: BoxFit.fitWidth,
+    );
   }
 
   @override

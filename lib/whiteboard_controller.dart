@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'toolbox_options.dart';
 import 'whiteboard_draw.dart';
+// import 'package:image/image.dart' as ImagePackage;
 // import 'dart:ui' as ui;
 
 typedef void SizeChanged(Size size);

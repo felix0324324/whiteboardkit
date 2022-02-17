@@ -38,6 +38,7 @@ class WhiteboardState extends State<Whiteboard> {
 
   StreamSubscription<Size> onSizeChangedSubscription;
   StreamSubscription<WhiteboardDraw> onCompletedSubscription;
+  final GlobalKey _ImageWidgetKey = GlobalKey();
 
   @override
   void initState() {
@@ -82,6 +83,7 @@ class WhiteboardState extends State<Whiteboard> {
 
       availbleSize =
           Size(constraints.maxWidth, constraints.maxHeight - toolboxOffset);
+
       // initialized = true;
 
       // print(
@@ -106,15 +108,20 @@ class WhiteboardState extends State<Whiteboard> {
                   height: boardSize.height,
                   alignment: FractionalOffset.topLeft,
                   decoration: BoxDecoration(
+                    // color: Colors.red,
                     border: widget.style.border,
                   ),
                   child: GestureDetector(
                     onPanUpdate: (DragUpdateDetails details) {
                       if (widget.controller.readonly) return;
-
                       RenderBox object = context.findRenderObject();
                       Offset _localPosition =
                           object.globalToLocal(details.globalPosition);
+
+                      RenderBox object2 =
+                          _ImageWidgetKey.currentContext.findRenderObject();
+                      var _aSize = object2.size;
+
                       widget.controller.onPanUpdate(_localPosition);
                       setState(() {});
                     },
@@ -124,26 +131,32 @@ class WhiteboardState extends State<Whiteboard> {
                       widget.controller.onPanEnd();
                       setState(() {});
                     },
-                    child: StreamBuilder<WhiteboardDraw>(
-                        stream: widget.controller.onChange(),
-                        builder: (context, snapshot) {
-                          var draw = snapshot.data;
-
-                          return RepaintBoundary(
-                            key: (widget.controller as DrawingController)
-                                .screenshotKey,
-                            child: Stack(children: <Widget>[
-                              CustomPaint(
-                                key: UniqueKey(),
-                                foregroundPainter: new SuperPainter(draw),
-                                size: Size.infinite,
-                                child: (widget.controller.bgImage != null)
-                                    ? widget.controller.bgImage
-                                    : Container(color: Colors.white),
-                              ),
-                            ]),
-                          );
-                        }),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Container(
+                          key: _ImageWidgetKey,
+                          child: StreamBuilder<WhiteboardDraw>(
+                              stream: widget.controller.onChange(),
+                              builder: (context, snapshot) {
+                                var draw = snapshot.data;
+                                return RepaintBoundary(
+                                  key: (widget.controller as DrawingController)
+                                      .screenshotKey,
+                                  child: Stack(children: <Widget>[
+                                    CustomPaint(
+                                      key: UniqueKey(),
+                                      foregroundPainter: new SuperPainter(draw),
+                                      size: Size.infinite,
+                                      child: (widget.controller.bgImage) ??
+                                          Container(color: Colors.red),
+                                    ),
+                                  ]),
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 if (showToolBox)
