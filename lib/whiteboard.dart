@@ -150,7 +150,7 @@ class WhiteboardState extends State<Whiteboard> {
                                       foregroundPainter: new SuperPainter(draw),
                                       size: Size.infinite,
                                       child: (widget.controller.bgImage) ??
-                                          Container(color: Colors.red),
+                                          Container(color: Colors.white),
                                     ),
                                   ]),
                                 );

@@ -35,6 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // String aImageString = "";
     controller = new DrawingController();
     controller.toolboxOptions = ToolboxOptions(
+        toolBarBtnColor: Colors.white,
+        toolBarColor: Colors.grey,
         eraser: false,
         thickIcon: CupertinoIcons.scribble,
         colorsIcon: CupertinoIcons.eyedropper,

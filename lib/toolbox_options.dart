@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ToolboxOptions {
   final Color canvasBGColor;
   final Color toolBarColor;
+  final Color toolBarBtnColor;
   final bool thick;
   final bool colors;
   final bool eraser;
@@ -17,6 +19,7 @@ class ToolboxOptions {
   const ToolboxOptions(
       {this.canvasBGColor = null,
       this.toolBarColor = null,
+      this.toolBarBtnColor = Colors.black,
       this.thick = true,
       this.colors = true,
       this.eraser = true,

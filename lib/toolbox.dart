@@ -44,8 +44,8 @@ class _ToolBoxState extends State<ToolBox> {
 
   @override
   void initState() {
-    brushSize = 20.0;
-    brushColor = Colors.blue;
+    brushSize = 10.0;
+    brushColor = Colors.red;
     erase = false;
     eraserSize = 20.0;
 
@@ -137,18 +137,24 @@ class _ToolBoxState extends State<ToolBox> {
                       _buildToolButton(
                         Icon(
                           getIcon(IconEnum.PenIcon),
+                          color: widget.options.toolBarBtnColor,
                           size: 20,
                         ),
                         select: ToolBoxSelected.size,
                       ),
                     if (widget.options.colors)
-                      _buildToolButton(Icon(getIcon(IconEnum.ColorsIcon)),
-                          select: ToolBoxSelected.color, color: brushColor),
+                      _buildToolButton(
+                        Icon(getIcon(IconEnum.ColorsIcon)),
+                        select: ToolBoxSelected.color,
+                        // color: brushColor
+                        color: widget.options.toolBarBtnColor,
+                      ),
                     if (widget.options.eraser)
                       _buildToolButton(
                         Icon(
                           getIcon(IconEnum.EraserIcon),
-                          color: new Color(0xffff93f5),
+                          color: widget.options.toolBarBtnColor,
+                          // color: new Color(0xffff93f5),
                           size: 26.0,
                         ),
                         select: ToolBoxSelected.erase,
@@ -170,7 +176,8 @@ class _ToolBoxState extends State<ToolBox> {
                         Icon(
                           getIcon(IconEnum.FileIcon),
                           size: 26.0,
-                          color: widget.color,
+                          color: widget.options.toolBarBtnColor,
+                          // color: widget.color,
                         ),
                         onPress: () => {widget.sketchController.wipe()},
                       ),
@@ -178,7 +185,8 @@ class _ToolBoxState extends State<ToolBox> {
                       _buildToolButton(
                           Icon(
                             getIcon(IconEnum.UndoIcon),
-                            color: widget.color,
+                            color: widget.options.toolBarBtnColor,
+                            // color: widget.color,
                             size: 24,
                           ),
                           onPress: widget.sketchController.undo),
